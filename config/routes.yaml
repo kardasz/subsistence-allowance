@@ -1,0 +1,11 @@
+employee:
+    resource:
+        path: ../src/Employee/Infrastructure/Controller/
+        namespace: App\Employee\Infrastructure\Controller
+    type: attribute
+
+subsistence_allowance:
+    resource:
+        path: ../src/SubsistenceAllowance/Infrastructure/Controller/
+        namespace: App\SubsistenceAllowance\Infrastructure\Controller
+    type: attribute

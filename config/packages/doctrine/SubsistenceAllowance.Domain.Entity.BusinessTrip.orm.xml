@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\SubsistenceAllowance\Domain\Entity\BusinessTrip" table="business_trip">
+        <id name="businessTripId" type="business_trip_id" column="id">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="employeeId" type="employee_id" column="employee_id"  />
+        <field name="country" enum-type="App\SubsistenceAllowance\Domain\ValueObject\Country" column="country"  />
+        <field name="amountDue" type="integer" column="amount_due" />
+        <field name="start" type="datetime_immutable" column="start_at" />
+        <field name="end" type="datetime_immutable" column="end_at" />
+    </entity>
+</doctrine-mapping>

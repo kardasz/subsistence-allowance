@@ -1,0 +1,52 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\Employee\:
+        resource: '../src/Employee/'
+        exclude:
+            - '../src/Employee/Application/Command/'
+            - '../src/Employee/Domain/Entity/'
+            - '../src/Employee/Domain/Event/'
+            - '../src/Employee/Domain/Exception/'
+            - '../src/Employee/Domain/Model/'
+            - '../src/Employee/Domain/ValueObject/'
+
+    App\Shared\:
+        resource: '../src/Shared/'
+        exclude:
+            - '../src/Shared/Domain/Command/AsyncCommandInterface.php'
+            - '../src/Shared/Domain/Command/CommandInterface.php'
+            - '../src/Shared/Domain/ValueObject'
+
+    App\SubsistenceAllowance\:
+        resource: '../src/SubsistenceAllowance/'
+        exclude:
+            - '../src/SubsistenceAllowance/Application/Command/'
+            - '../src/SubsistenceAllowance/Domain/Entity/'
+            - '../src/SubsistenceAllowance/Domain/Event/'
+            - '../src/SubsistenceAllowance/Domain/Exception/'
+            - '../src/SubsistenceAllowance/Domain/Model/'
+            - '../src/SubsistenceAllowance/Domain/ValueObject/'
+
+    _instanceof:
+        App\Shared\Domain\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
+        App\Shared\Domain\Command\AsyncCommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus.async }
+
+        App\Shared\Domain\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
